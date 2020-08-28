@@ -1,0 +1,95 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./layout.css">
+</head>
+<body>
+    <div id = "container">
+        <header  class="header">  
+            <h1 class = "shadow">My Profile</h1>
+        </header>
+        <aside class = "aside"> 
+            <div id = "img">            
+                <img src="./강준환 (1) - 웹용.jpg" width="140px" height="auto" alt="내 얼굴">
+                <h3>Junhwan Kang</h3><br>
+                Incheon,Korea
+            </div><br>
+            <div id= "list">
+                <ul>
+                    <li><a href ="#">My resume</a>
+                    <li><a href ="#">My resolution</a>
+                    <li><a href ="#">SNS</a>
+                </ul>
+            </div>
+        </aside>
+        <div class="main">
+            <section>
+                <h2>Who am I?</h2>
+                <p>Java를 이용한 백엔드 업무를 하고싶습니다.<br>
+                저는 무언가를 만들기 시작하면 포기하지 않는 성격을
+                갖고있습니다. 이 웹 사이트는 저를 소개하는 공간을 만들고 싶어
+                 몇 일동안 HTML&CSS를 공부하며 밤을 지샜습니다.<br>
+                이 처럼 몇 날밤을 새서라도 제가 하고자 하는것을 해내기때문에 저는 부족한 부분이 있더라도
+                두렵지 않습니다. 
+                또한 백지상태에서 제가 쓴 코드들이 모여 무언가를 만들어 낼수있다는게 즐겁습니다.
+            </section><hr>
+            <section>
+                <h2>What I studied</h2>
+                <ul>
+                    <li>Java</li>
+                    <li>Oracle</li>
+                    <li>JSP</li>
+                    <li>HTML&CSS</li>
+                </ul><br>
+            </section><hr>
+            <section>
+                <h2>etc..</h2>
+                <h3>학력</h3>
+                <table border = "1">
+                    <tr>
+                        <th>학교</th>
+                        <th>전공</th>
+                        <th>졸업현황</th>
+                    </tr>
+                    <tr>
+                        <td align = "center">가정고등학교</td>
+                        <td align = "center">-</td>
+                        <td align = "center">졸업</td>
+                    </tr>
+                    <tr>
+                        <td align = "center">인하공업전문대학교</td>
+                        <td align = "center">디지털전자과</td>
+                        <td align = "center">졸업</td>
+                    </tr>
+                </table><br>
+                <h3>정보</h3>
+                <table border = "1">
+                    <tr>
+                        <th align = "center">자격증</th>
+                        <td align = "center">운전면허 1종 보통</td>
+                    </tr>
+                    <tr>
+                        <th align = "center">어학</th>
+                        <td align = "center">토익 575점</td>
+                    </tr>
+                    <tr>
+                        <th align = "center">군필 여부</th>
+                        <td align = "center">군필</td>
+                    </tr>
+                </table>
+            </section><br>
+        </div>
+        <footer class = "footer">
+            <div id = "copyright">
+                Writer: 강준환<br>
+                TEL: 010-4626-5851<br>
+                E-Mail: wnsghks1017@naver.com
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
