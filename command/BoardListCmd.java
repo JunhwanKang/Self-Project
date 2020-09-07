@@ -1,17 +1,17 @@
-package board.command;
+package com.board.command;
 
 import java.util.ArrayList;
 import com.board.model.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
-public class BoardListCmd {
+public class BoardListCmd implements BoardCmd{
 	
-	public void excute (HttpServletRequest request, HttpServletResponse response) {
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list;
 		
-		int pageCnt = 0; 
+		int pageCnt = 0;
 		String curPage = request.getParameter("curPage");
 		
 		if(curPage == null) curPage = "1";
@@ -19,9 +19,8 @@ public class BoardListCmd {
 		list = dao.boardList(curPage);
 		
 		request.setAttribute("boardList", list);
-		
+		 
 		pageCnt = dao.boardPageCnt();
 		request.setAttribute("pageCnt", pageCnt);
-		
 	}
 }

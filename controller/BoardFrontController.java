@@ -5,9 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.board.command.*;
 
@@ -31,7 +29,7 @@ public class BoardFrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request,response);
 	}
 
 	/**
@@ -47,10 +45,23 @@ public class BoardFrontController extends HttpServlet {
 		BoardCmd cmd=null;
 		String viewPage=null;
 		
-		if(cmdURI.equals("/boardList.bbs")) {
-			cmd = (BoardCmd) new BoardListCmd();
+		if(cmdURI.equals("/BoardList.bbs")) { 
+			cmd =  new BoardListCmd();
 			cmd.execute(request,response);
-			viewPage="boardList.jsp";
+			viewPage="BoardList.jsp";
+		}
+		if(cmdURI.equals("/BoardWriteForm.bbs")) {
+			viewPage = "BoardWrite.jsp";
+		}
+		if(cmdURI.equals("/BoardWrite.bbs")) {
+			cmd = new BoardWriteCmd();
+			cmd.execute(request, response);
+			 viewPage = "BoardList.bbs";
+		}
+		if(cmdURI.equals("/boardRead.bbs")) {
+			cmd = new BoardReadCmd();
+			cmd.execute(request, response);
+			viewPage = "BoardRead.jsp";
 		}
 		
 		RequestDispatcher dis = request.getRequestDispatcher(viewPage);

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>    
-<!DOCTYPE html>
 <html>
 <head>
 <title>게시판</title>
@@ -9,7 +8,7 @@
 	<table border = "1">
 		<tr>
 			<td colspan="7" align="right">
-				<a href = "boardWriteForm.bbs">[새글쓰기]</a>	
+				<a href = "BoardWriteForm.bbs">[새글쓰기]</a>	
 			</td>
 		</tr>	
 		<tr>
@@ -38,15 +37,15 @@
 		</c:forEach>
 		<tr>
 			<td colspan="7">
-			<a href="boardList.bbs">[첫 페이지로]</a>
+			<a href="BoardList.bbs">[첫 페이지로]</a>
 				<c:forEach var="i" begin="1" end="${pageCnt }">
-					<a href="boardList.bbs?curpage=${i }">[${i }]</a>
+					<a href="BoardList.bbs?curpage=${i }">[${i }]</a>
 				</c:forEach>			
 			</td>
 		</tr>
 		<tr>
 			<td colspan="7" align="center">
-				<form action="boardSearch.bbs" method="post">
+				<form action="BoardSearch.bbs" method="post">
 					<select name="searchOption">
 						<option value="subject">제목</option>
 						<option value="content">본문</option>

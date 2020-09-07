@@ -88,9 +88,4 @@ public class BoardDTO {
 	public void setChildCnt(int childCnt) {
 		this.childCnt = childCnt;
 	}
-	
-	
-	
-	
-	
 }

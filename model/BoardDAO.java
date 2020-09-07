@@ -34,13 +34,13 @@ public class BoardDAO {
 		ResultSet rs = null;
 		
 		try {
-			conn=ds.getConnection();
+			conn = ds.getConnection();
 			String sql = "SELECT num, name, password, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt";
-			sql += "FROM BOARD ORDER BY ref desc, step asc";
-			sql += "LIMIT ?, ?";
+			sql += " FROM BOARD ORDER BY ref desc, step asc ";
+			sql += " LIMIT ?, ?";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,WRITING_PER_PAGE * (Integer.parseInt(curPage)-1));
+			pstmt.setInt(1, WRITING_PER_PAGE * (Integer.parseInt(curPage)-1));
 			pstmt.setInt(2, WRITING_PER_PAGE);
 			
 			rs = pstmt.executeQuery();
@@ -64,6 +64,7 @@ public class BoardDAO {
 				writing.setName(name);
 				writing.setPassword(password);
 				writing.setSubject(subject);
+				writing.setContent(content);
 				writing.setWriteDate(writeDate);
 				writing.setWriteTime(writeTime);
 				writing.setRef(ref);
@@ -115,6 +116,106 @@ public class BoardDAO {
 			}
 		}
 		return pageCnt;
+	}
+	
+	public void boardWrite(String name, String subject, String content, String password) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int num = 1;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "SELECT IFNULL(MAX(num),0)+1 AS NUM FROM BOARD";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt("num");
+			}
+			sql = "INSERT INTO BOARD(num, name, password, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt)"
+					+" values (?, ?, ?, ?, ?, curdate(), curtime(), ?, 0, 0, 0, 0) ";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, num);
+			pstmt.setString(2, name);
+			pstmt.setString(3, password);
+			pstmt.setString(4, subject);
+			pstmt.setString(5, content);
+			pstmt.setInt(6, num);
+			
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public BoardDTO boardRead(String inputNum) {
+		
+		BoardDTO writing = new BoardDTO();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "UPDATE BOARD SET READ_CNT = READ_CNT+1 WHERE NUM = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			pstmt.executeUpdate();
+			
+			sql = "SELECT num, name, password, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt FROM BOARD WHERE NUM = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				String password = rs.getString("password");
+				String subject = rs.getString("subject");
+				String content = rs.getString("content");
+				Date writeDate = rs.getDate("write_Date");
+				Time writeTime = rs.getTime("write_Time");
+				int ref = rs.getInt("ref");
+				int step = rs.getInt("step");
+				int lev = rs.getInt("lev");
+				int readCnt = rs.getInt("read_Cnt");
+				int childCnt = rs.getInt("child_Cnt");
+				
+				writing.setNum(num);
+				writing.setName(name);
+				writing.setPassword(password);
+				writing.setSubject(subject);
+				writing.setContent(content);
+				writing.setWriteDate(writeDate);
+				writing.setWriteTime(writeTime);
+				writing.setRef(ref);
+				writing.setStep(step);
+				writing.setLev(lev);
+				writing.setReadCnt(readCnt);
+				writing.setChildCnt(childCnt);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return writing;
 	}
 }
 
