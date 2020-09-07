@@ -8,6 +8,7 @@ public class BoardListCmd implements BoardCmd{
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list;
 		

@@ -1,31 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>°Ô½ÃÆÇ »õ±Û ¾²±â</title>
+<title>ê²Œì‹œíŒ ìƒˆê¸€ ì“°ê¸°</title>
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
 </head>
 <body>
 	<form action = "BoardWrite.bbs" method = "post">
 		<table border = "1">
 			<tr>
-				<td>±Û Á¦¸ñ</td>
+				<td>ê¸€ ì œëª©</td>
 				<td colspan="3"><input type="text" name="subject" maxlength="50" size="50"></td>
 			</tr>
 			<tr>
-				<td>ÀÛ¼ºÀÚ</td>
+				<td>ìž‘ì„±ìž</td>
 				<td><input type="text" name="name" maxlength="20" size="20"></td>
-				<td>ºñ¹Ð¹øÈ£</td>
+				<td>ë¹„ë°€ë²ˆí˜¸</td>
 				<td><input type="password" name="password"	maxlength="20" size="12"></td>
 			</tr>	
 			<tr>
-				<td>º»¹®</td>
+				<td>ë³¸ë¬¸</td>
 				<td colspan="3"><textarea name="content" rows="8" cols="45"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="4" align="right">
-					<input type="submit" value="±Û ¿Ã¸®±â">
+					<input type="submit" value="ê¸€ ì˜¬ë¦¬ê¸°">
 				</td>
 			</tr>			
 		</table>

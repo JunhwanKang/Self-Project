@@ -97,7 +97,7 @@ public class BoardDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "SELECT COUNT (*) AS num FROM BOARD";
+			String sql = "SELECT COUNT(*) AS num FROM BOARD";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			

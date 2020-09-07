@@ -1,38 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "com.board.model.*" %>
 <%@ page import = "java.util.*" %>
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
 	<table>
 		<tr>
-			<td colspan="4" align="right"><a href="BoardList.bbs">[¸ñ·ÏÀ¸·Î]</a></td>
+			<td colspan="4" align="right"><a href="BoardList.bbs">[ëª©ë¡ìœ¼ë¡œ]</a></td>
 		</tr>
 		<tr>
-			<td>±Û Á¦¸ñ</td>
+			<td>ê¸€ ì œëª©</td>
 			<td colspan="3"><input type="text" name="subject" maxlength="50" size="50" value="${boardRead.subject}" disabled="disabled"></td>
 		</tr>
 		<tr>
-			<td>ÀÛ¼ºÀÚ</td>
+			<td>ì‘ì„±ì</td>
 			<td><input type="text" name="name" maxlength="20" size="20" value="${boardRead.name}" disabled="disabled"></td>
-			<td>Á¶È¸¼ö:${boardRead.readCnt},</td>
-			<td>´ä±Û¼ö:${boardRead.childCnt}</td>
+			<td>ì¡°íšŒìˆ˜:${boardRead.readCnt},</td>
+			<td>ë‹µê¸€ìˆ˜:${boardRead.childCnt}</td>
 		</tr>
 		<tr>
-			<td>º»¹®</td>
+			<td>ë³¸ë¬¸</td>
 			<td colspan="3"><textarea name="content" rows="8" cols="45" disabled="disabled">${boardRead.content}</textarea></td>
 		</tr>
 		<tr>
 			<td colspan="4" align="right">
-				<a href="boardUpdatePassword.bbs?num=${boardRead.num}">[¼öÁ¤]</a>
-				<a href="boardDeletePassword.bbs?num=${boardRead.num}">[»èÁ¦]</a>
-				<a href="boardReplyForm.bbs?num=${boardRead.num}">[´ä±Û]</a>
+				<a href="boardUpdatePassword.bbs?num=${boardRead.num}">[ìˆ˜ì •]</a>
+				<a href="boardDeletePassword.bbs?num=${boardRead.num}">[ì‚­ì œ]</a>
+				<a href="boardReplyForm.bbs?num=${boardRead.num}">[ë‹µê¸€]</a>
 			</td>
 		</tr>
 	</table>

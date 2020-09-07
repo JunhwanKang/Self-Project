@@ -5,6 +5,9 @@
 <title>게시판</title>
 </head>
 <body>
+	<%
+		request.setCharacterEncoding("UTF-8");
+	%>
 	<table border = "1">
 		<tr>
 			<td colspan="7" align="right">
@@ -15,6 +18,7 @@
 			<td>글 번호</td>
 			<td>글 제목</td>
 			<td>작성자</td>
+			<td>작성일</td>
 			<td>작성시간</td>
 			<td>조회수</td>
 			<td>답글수</td>
@@ -38,8 +42,8 @@
 		<tr>
 			<td colspan="7">
 			<a href="BoardList.bbs">[첫 페이지로]</a>
-				<c:forEach var="i" begin="1" end="${pageCnt }">
-					<a href="BoardList.bbs?curpage=${i }">[${i }]</a>
+				<c:forEach var="i" begin="1" end="${pageCnt}">
+					<a href="BoardList.bbs?curPage=${i}">[${i}]</a>
 				</c:forEach>			
 			</td>
 		</tr>
