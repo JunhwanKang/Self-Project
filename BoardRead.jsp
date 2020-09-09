@@ -4,7 +4,7 @@
 <%@ page import = "java.util.*" %>
 <html>
 <head>
-<title>Insert title here</title>
+<title>게시글</title>
 </head>
 <body>
 	<%

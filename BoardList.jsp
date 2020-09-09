@@ -23,20 +23,20 @@
 			<td>조회수</td>
 			<td>답글수</td>
 		</tr>
-		<c:forEach items = "${boardList }" var = "dto">
+		<c:forEach items = "${boardList}" var = "dto">
 			<tr>
-				<td><a href="boardRead.bbs?num=${dto.num }">${dto.num }</a></td>
+				<td><a href="boardRead.bbs?num=${dto.num}">${dto.num}</a></td>
 				<td>
-					<c:forEach begin="1" end="${dto.lev }">
+					<c:forEach begin="1" end="${dto.lev}">
 						<%="&nbsp;&nbsp;" %>
 					</c:forEach>
-					<a href="boardRead.bbs?num=${dto.num }">${dto.subject }</a>
+					<a href="boardRead.bbs?num=${dto.num}">${dto.subject}</a>
 				</td>
-				<td>${dto.name }</td>
-				<td>${dto.writeDate }</td>
-				<td>${dto.writeTime }</td>
-				<td>${dto.readCnt }</td>
-				<td>${dto.childCnt }</td>
+				<td>${dto.name}</td>
+				<td>${dto.writeDate}</td>
+				<td>${dto.writeTime}</td>
+				<td>${dto.readCnt}</td>
+				<td>${dto.childCnt}</td>
 			</tr>
 		</c:forEach>
 		<tr>
