@@ -103,6 +103,33 @@ public class BoardFrontController extends HttpServlet {
 			cmd.execute(request, response);
 			viewPage = "BoardList.bbs";
 		}
+		//글 삭제 비밀번호 확인
+		if(cmdURI.equals("/boardDeletePassword.bbs")) {
+			cmd = new BoardDeletePasswordCmd();
+			cmd.execute(request, response);
+			viewPage = "boardDeletePassword.jsp";
+		}
+		//글 삭제 비밀번호 처리
+		if(cmdURI.equals("/boardDeleteCheck.bbs")) {
+			cmd = new BoardDeleteCheckCmd();
+			cmd.execute(request, response);
+			
+			BoardDeleteCheckCmd checkCmd = (BoardDeleteCheckCmd) cmd;
+			if(checkCmd.password_check && checkCmd.reply_check) 
+				viewPage = "boardDelete.bbs";
+			else
+				viewPage = "boardDeleteError.bbs";
+		}
+		//글 삭제 비밀번호 오류
+		if(cmdURI.equals("/boardDeleteError.bbs")) {
+			viewPage = "boardDeleteError.jsp";
+		}
+		//글 삭제
+		if(cmdURI.equals("/boardDelete.bbs")) {
+			cmd = new BoardDeleteCmd();
+			cmd.execute(request, response);
+			viewPage = "BoardList.bbs";
+		}
 		
 		RequestDispatcher dis = request.getRequestDispatcher(viewPage);
 		dis.forward(request, response);

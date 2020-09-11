@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.print.attribute.standard.PresentationDirection;
 import javax.sql.DataSource;
 
+import org.omg.CORBA.Request;
+
 
 public class BoardDAO {
 	
@@ -280,7 +282,7 @@ public class BoardDAO {
 		}
 		return passwordOk;
 	}
-	//글 수정 호하면에 필요한 원글 데이터 조회 기능
+	//글 수정 화면에 필요한 원글 데이터 조회 기능
 	public BoardDTO boardUpdateForm(String inputNum) {
 		BoardDTO writing = new BoardDTO();
 		
@@ -335,6 +337,116 @@ public class BoardDAO {
 			}
 		}
 		return writing;
+	}
+	//게시글 삭제 기능
+	public void boardDelete(String inputNum) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "SELECT ref, lev, step FROM BOARD WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int ref = rs.getInt(1);
+				int lev = rs.getInt(2);
+				int step = rs.getInt(3);
+				boardDeleteChildCntUpdate(ref, lev, step);
+			}
+			
+			sql = "DELETE FROM BOARD WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	//삭제 때상인 게시글 답글 존재 유무 검사
+	public boolean boardReplyCheck(String inputNum) {
+		boolean replyCheck = false;
+		int replyCnt = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "SELECT child_cnt AS reply_check FROM BOARD WHERE num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) replyCnt = rs.getInt("reply_check");
+			if(replyCnt==0) replyCheck = true;
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return replyCheck;
+	}
+	//게시글이 답글일 경우 원글들의 답글 개수를 줄여주는 기능
+	public void boardDeleteChildCntUpdate(int ref, int lev, int step) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		try {
+			conn = ds.getConnection();
+			for(int updateLev = lev-1; updateLev>=0; updateLev--) {
+				sql = "SELECT MAX(step) FROM BOARD WHERE ref = ? and lev = ? and step < ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, ref);
+				pstmt.setInt(2, lev);
+				pstmt.setInt(3, step);
+				pstmt.executeQuery();
+				int maxStep = 0;
+				
+				if(rs.next()) maxStep = rs.getInt(1);
+				
+				sql = "UPDATE BOARD SET child_cnt = child_cnt-1 WHERE ref = ? and lev = ? and step = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, ref);
+				pstmt.setInt(2, updateLev);
+				pstmt.setInt(3, maxStep);
+				pstmt.executeUpdate();
+					
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
 
