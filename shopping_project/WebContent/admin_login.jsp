@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 로그인</title>
-<link href="all.css" rel="stylesheet">
+<link href="../all.css" rel="stylesheet">
 </head>
 	<%
 		String id=(String)session.getAttribute("G_ADMIN_ID");
@@ -27,9 +27,10 @@
 			}
 			document.frm1.submit();
 		}
+		
 	</script>
 <body>
-	<form name="frm1" action="admin_login.jsp" method="post">
+	<form name="frm1" action="admin_login_ok.jsp" method="post">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td align="center" valign="top">

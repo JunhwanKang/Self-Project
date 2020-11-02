@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <tr>
-	<td height="67"><table width="815" border="0" cellspacing="0" cellpadding="0">
+	<td height="67">
+	<table width="815" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="223" height="67" rowspan="2" align="center">
-			<a href="index.jsp">
+			<a href="admin_index.jsp">
 			<img src="icons/logo.gif" width="223" height="67" border="0"/>
 			</a>
 		</td>
@@ -27,5 +28,6 @@
 %>
 		</td>
 	</tr>
-	</table></td>
+	</table>
+	</td>
 </tr>
