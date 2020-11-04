@@ -44,9 +44,9 @@
 		var catg1size = document.frm1.catg1cd.options.length;
 		var catg2G = new Array(catg1size);
 		
-		for(i=0; i<catg1size; i++){
+		for(i=0; i<catg1size; i++)
 			catg2G[i] = new Array();
-		}
+		
 		catg2G[0][0] = new Option("대분류를 먼저 선택하세요.","");
 		catg2G[1][0] = new Option("==중분류를 선택하세요==","");
 		catg2G[1][1] = new Option("하프팬츠",     "H");
@@ -63,10 +63,12 @@
 		catg2G[3][2] = new Option("후드/터틀",    "H");
 		catg2G[3][3] = new Option("니트",        "N");
 		catg2G[3][4] = new Option("브이넥",       "V");
-		
 		temp = document.frm1.catg2cd;
 		for(m=temp.options.length-1; m>0; m--){
-			temp.options[i] = new Option(catg2[x][i].text, catg2G[x][i].value);
+			temp.options[m]=null;
+		}
+		for(i=0; i<catg2G[x].length; i++){
+			temp.options[i] = new Option(catg2G[x][i].text, catg2G[x][i].value);
 		}
 		temp.options[0].selected = true;
 	}
