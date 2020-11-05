@@ -82,6 +82,6 @@ finally{
 	if (stmt  != null) stmt.close();
 	if (rs    != null) rs.close();
 	if (con   != null) con.close();
-	response.sendRedirect("goodslist.jsp");
+// 	response.sendRedirect("goodslist.jsp");
 }
 %>

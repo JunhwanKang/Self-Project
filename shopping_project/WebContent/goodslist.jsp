@@ -25,7 +25,7 @@
     <td align="center" valign="top"><table width="815" border="0" cellspacing="0" cellpadding="0">
 			<%@ include file="admin_top.jsp" %>
       <tr>
-        <td height="80" background="sub_bg.jpg">&nbsp;</td>
+        <td height="80" background="icons/sub_bg.jpg">&nbsp;</td>
       </tr>
       <tr>
         <td align="center" valign="top">
@@ -52,7 +52,7 @@
 							}
 
 							int currentPage = Integer.parseInt(strPageNum);			// 현재 페이지
-							int pageSize		= 5;
+							int pageSize=5;
 
 							ResultSet rs = null, rs2 = null;
 								
@@ -73,14 +73,21 @@
 							{	
 								totalRecords = rs2.getInt(1); 
 
-								SQL = "select top " + pageSize ;
-								SQL = SQL  + " cat1nm, cat2nm, goodscd, goodsnm, unitprice, best_yn, convert(char(10), regdtm, 102) regdtm ";
-								SQL = SQL  + " from goodsinfo a inner join category2 b on a.cat1cd = b.cat1cd and a.cat2cd = b.cat2cd "; 
-								SQL = SQL  + " inner join category1 c on b.cat1cd = c.cat1cd "; 
-								SQL = SQL  + " where goodscd not in (select top ";
-								SQL = SQL  + (currentPage - 1) * pageSize + " goodscd from goodsinfo a inner join category2 b on a.cat1cd = b.cat1cd and a.cat2cd = b.cat2cd ";
-								SQL = SQL  + " inner join category1 c on b.cat1cd = c.cat1cd order by goodscd  )";
-								SQL = SQL  + " order by goodscd ";
+								SQL = "select cat1nm, cat2nm, goodscd, goodsnm, unitprice, best_yn, convert(regdtm, char(10)) as regdtm "
+									+" from goodsinfo a inner join category2 b on a.cat1cd = b.cat1cd and a.cat2cd = b.cat2cd "
+									+" inner join category1 c on b.cat1cd = c.cat1cd "
+									+" where goodscd not in (select * from ((select goodscd from goodsinfo a inner join "
+									+" category2 b on a.cat1cd = b.cat1cd and a.cat2cd = b.cat2cd inner join category1 c on b.cat1cd = c.cat1cd "
+									+" order by goodscd LIMIT "+((currentPage -1)*pageSize) + " ) as temp)) order by goodscd LIMIT "+pageSize;
+
+								
+// 								SQL =  "select cat1nm, cat2nm, goodscd, goodsnm, unitprice, best_yn, convert(regdtm,char(10)) ";
+// 								SQL = SQL  + " from goodsinfo a inner join category2 b on a.cat1cd = b.cat1cd and a.cat2cd = b.cat2cd "; 
+// 								SQL = SQL  + " inner join category1 c on b.cat1cd = c.cat1cd limit "+ pageSize ; 
+// 								SQL = SQL  + " where goodscd not in (select ";
+// 								SQL = SQL  + " goodscd from goodsinfo a inner join category2 b on a.cat1cd = b.cat1cd and a.cat2cd = b.cat2cd ";
+// 								SQL = SQL  + " inner join category1 c on b.cat1cd = c.cat1cd  order by goodscd limit " + (currentPage - 1) * pageSize + ") ";
+// 								SQL = SQL  + " order by goodscd ";
 								
 								rs = stmt.executeQuery(SQL);			// 현재 페이지에 출력할 상품만 select
 
