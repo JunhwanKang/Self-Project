@@ -16,14 +16,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>관리자 상품리스트</title>
-<link href="/chap11/includes/all.css" rel="stylesheet" type="text/css" />
+<link href="all.css" rel="stylesheet" type="text/css" />
 </head>
 
 <BODY>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center" valign="top"><table width="815" border="0" cellspacing="0" cellpadding="0">
-			<%@ include file="admin_top.jsp" %>
+			<%@ include file = "admin_top.jsp" %>
       <tr>
         <td height="80" background="icons/sub_bg.jpg">&nbsp;</td>
       </tr>

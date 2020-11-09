@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" import="java.sql.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-
+<%@include file = "dbinfo.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
@@ -51,42 +51,23 @@ function KeyNumber()
 }
 
 function cat1cd_Change() {
-	var x					= document.frm1.cat1cd.options.selectedIndex;
-	var cat1size	= document.frm1.cat1cd.options.length;
-	var cat2G			= new Array(cat1size);
-
-	for (i = 0; i < cat1size; i++)
-		cat2G[i] = new Array();
-
-	cat2G[0][0]	=	new Option("대분류를 먼저 선택하세요","");
-	cat2G[1][0]	=	new Option("==중분류를 선택하세요==","");
-	cat2G[1][1]	=	new Option("하프팬츠",		"H");
-	cat2G[1][2]	=	new Option("팬츠",				"P");
-
-	cat2G[2][0]	=	new Option("==중분류를 선택하세요==","");
-	cat2G[2][1]	=	new Option("코트",				"C");
-	cat2G[2][2]	=	new Option("가디건",			"G");
-	cat2G[2][3]	=	new Option("점퍼",				"J");
-	cat2G[2][4]	=	new Option("자켓",				"K");
-
-	cat2G[3][0]	=	new Option("==중분류를 선택하세요==","");
-	cat2G[3][1]	=	new Option("반팔",				"B");
-	cat2G[3][2]	=	new Option("후드/터틀",		"H");
-	cat2G[3][3]	=	new Option("니트",				"N");
-	cat2G[3][4]	=	new Option("브이넥",			"V");
-
-	temp = document.frm1.cat2cd;
-	for (m = temp.options.length - 1; m > 0; m--)
-	 temp.options[m] = null;
-
-	 for (i = 0; i < cat2G[x].length; i++){
-		temp.options[i] = new Option(cat2G[x][i].text, cat2G[x][i].value);
-	 }
-
-	 temp.options[0].selected = true;
+	document.frm1.action = "goodsinfo_insert2.jsp?cat1cd="+document.frm1.cat1cd.value;
+	document.frm1.submit();
 }
-
 </script>
+
+<%
+	ResultSet rs = null;
+	Statement stmt = con.createStatement();
+	String cat1cd = request.getParameter("cat1cd");
+	
+	try{
+		String strSQL = "select cat1cd, cat1nm from category1 order by cat1cd";
+		rs=stmt.executeQuery(strSQL);
+	} catch(Exception e){
+		e.printStackTrace();
+	}
+%>
 
 <BODY>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -111,9 +92,18 @@ function cat1cd_Change() {
 									<td width="76%" align="left" bgcolor="#FFFFFF">
 										<SELECT NAME="cat1cd" onChange="cat1cd_Change();">
 											<OPTION VALUE="">==대분류를 선택하세요==</OPTION>
-											<OPTION VALUE="B">BOTTOM</OPTION>
-											<OPTION VALUE="O">OUTER</OPTION>
-											<OPTION VALUE="T">TOP</OPTION>
+								<%
+									while(rs.next()){
+										out.print("<optuon value=\"");
+										out.print(rs.getString("cat1cd"));
+										out.print("\"");
+										if(rs.getString("cat1cd")/equals(cat1cd))
+											out.print("selected");
+										out.print(">");
+										out.print(rs.getString("cat1nm"));
+										out.println("</option>");
+									}
+								%>			
 										</SELECT>
 									</td>
 								</tr>
@@ -121,6 +111,23 @@ function cat1cd_Change() {
 									<td width="24%" align="left" bgcolor="#EEEEEE">중분류</td>
 									<td width="76%" align="left" bgcolor="#FFFFFF">
 										<SELECT NAME="cat2cd">
+											<option value="">==중분류를 선택하세요==</option>
+								<%
+									if(rs != null) rs.close();
+									
+									if(cat1cd != null && cat1cd != ""){
+										strSQL = "select cat1cd, cat2cd, cat2nm from category2 where cat1cd = '"+cat1cd+ "' order by cat2cd";
+										rs = stmt.executeQuery(strSQL);
+										
+										while(rs.next()){
+											out.print("<option value=\"");
+											out.print(rs.getString("cat2nm"));
+											out.print("\">");
+											out.print(rs.getString("cat2nm"));
+											out.print("</option>");
+										}
+									}
+								%>			
 										</SELECT>
 									</td>
 								</tr>
