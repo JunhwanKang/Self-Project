@@ -64,9 +64,7 @@ function cat1cd_Change() {
 	try{
 		String strSQL = "select cat1cd, cat1nm from category1 order by cat1cd";
 		rs=stmt.executeQuery(strSQL);
-	} catch(Exception e){
-		e.printStackTrace();
-	}
+	
 %>
 
 <BODY>
@@ -97,7 +95,7 @@ function cat1cd_Change() {
 										out.print("<optuon value=\"");
 										out.print(rs.getString("cat1cd"));
 										out.print("\"");
-										if(rs.getString("cat1cd")/equals(cat1cd))
+										if(rs.getString("cat1cd").equals(cat1cd))
 											out.print("selected");
 										out.print(">");
 										out.print(rs.getString("cat1nm"));
@@ -159,4 +157,22 @@ function cat1cd_Change() {
   </tr>
 </table>
 </BODY>
+<%
+
+} // end try
+
+catch(SQLException e1){
+	out.println(e1.getMessage());
+} 
+
+catch(Exception e2){
+	e2.printStackTrace();
+}
+
+finally{
+	if (stmt  != null) stmt.close();
+	if (rs    != null) rs.close();
+	if (con   != null) con.close();
+} 
+%>
 </HTML>
