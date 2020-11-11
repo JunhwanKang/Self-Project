@@ -16,7 +16,7 @@
 		<tr>
 			<td align="center" valign="top">
 				<table width="815" border="0" cellspacing="0" cellpadding="0">
-				 <%@include file = "admin_top.jsp" %>
+				 <%@include file = "top.jsp" %>
 				 <tr> 
 				 	<td height ="284"><img src="icons/main.jpg" width="815" height="284" alt="메인"/></td>
 				 </tr>
@@ -67,11 +67,11 @@
 	 			</td>
 	 	<%
 			cnt++;	 	
-			if(cnt==3)
+			if(cnt %3==0)
 				out.print("</tr><tr>");
 	 	}
 		 	
-		 	if(cnt != 3)
+		 	if(cnt %3 != 0)
 		 		out.print("</tr>");
 		 	if(stmt != null) stmt.close();
 		 	if(rs != null) rs.close();
