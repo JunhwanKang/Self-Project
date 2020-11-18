@@ -33,7 +33,7 @@
 				<li class="list"> | <a href="goodsdisplay.jsp?pcat1=B" class="navi">BOTTOM</a></li>
 				<li class="list"> | <a href="goodsdisplay.jsp?pcat1=O" class="navi">OUTER</a></li>		
 				<li class="list"> | <a href="goodsdisplay.jsp?pcat1=T" class="navi">TOP</a></li>
-				<li class="list"> | <a href="goodsdisplay.jsp?pcat1=T" class="navi">관리자페이지</a></li>
+				<li class="list"> | <a href="admin_login.jsp" class="navi">관리자페이지</a></li>
 		</td>
 	</tr>
 </table></td>
